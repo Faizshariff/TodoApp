@@ -1,20 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import Taskdetails from './src/components/Taskdetails';
+import { NativeBaseProvider } from "native-base";
+import { Provider } from 'react-redux';
+import store from './src/store';
+import { TodoApp } from './src/components/TodoApp';
+
+const screenHeight = Dimensions.get('window').height;
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <NativeBaseProvider>
+        <View style={[styles.container, { height: screenHeight }]}>
+          <Taskdetails />
+          <TodoApp />
+          <StatusBar style="auto" />
+        </View>
+      </NativeBaseProvider>
+    </Provider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    padding: 20,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginLeft: 5,
   },
 });
